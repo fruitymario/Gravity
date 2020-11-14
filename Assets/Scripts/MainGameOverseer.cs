@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class MainGameOverseer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    #region static variables
+    private static MainGameOverseer instance;
 
-    // Update is called once per frame
-    void Update()
+    public static MainGameOverseer Instance
     {
-        
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<MainGameOverseer>();
+            }
+            return instance;
+        }
+    }
+    #endregion static variables
+
+    private void Awake()
+    {
+
     }
 }
