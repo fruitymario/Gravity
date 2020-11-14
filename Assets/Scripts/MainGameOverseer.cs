@@ -36,6 +36,7 @@ public class MainGameOverseer : MonoBehaviour
 
     #region main variables
     public GameState CurrentGameState { get; private set; }
+    public PlayerChar MainPlayerChar { get; private set; }
     #endregion main variables
 
     #region monobehaviour methods
@@ -44,6 +45,11 @@ public class MainGameOverseer : MonoBehaviour
         instance = this;
     }
     #endregion monobehaivour methods
+
+    public void SetMainPlayer(PlayerChar Player)
+    {
+        MainPlayerChar = Player;
+    }
 
     public void SetGameState(GameState NewGameState)
     {
@@ -80,6 +86,4 @@ public class MainGameOverseer : MonoBehaviour
                 return;
         }
     }
-
-    
 }
