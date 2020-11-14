@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class BaseChar : MonoBehaviour
 {
     public enum GravityDirection : byte { Up, Down, Left, Right }
@@ -14,6 +12,15 @@ public class BaseChar : MonoBehaviour
     public static float gravitySpeed = 2;
 
     protected BoxCollider2D hitBox;
+    protected ContactFilter2D SolidFilter;
+
+
+    protected const float LEWAY = .05f;
+
+    private void Awake()
+    {
+        SolidFilter.SetLayerMask(LayerMask.GetMask("Ground"));
+    }
 
     protected virtual void Start()
     {
@@ -24,6 +31,7 @@ public class BaseChar : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
+        Collisions();
         transform.position += (Vector3)velocity;
     }
 
@@ -56,5 +64,30 @@ public class BaseChar : MonoBehaviour
         else { gravity = (negativeGrav) ? new Vector2(-1, 0) : new Vector2(1, 0); }
 
         gravity *= gravitySpeed;
+    }
+
+    private void Collisions()
+    {
+        RaycastHit2D[] checkForGround = new RaycastHit2D[5];
+        int numHits;
+
+        numHits = hitBox.Cast(velocity.normalized, SolidFilter, checkForGround, velocity.magnitude);
+
+        for (int i = 0; i < numHits; i++)
+        {
+            ColliderDistance2D dist = hitBox.Distance(checkForGround[i].collider);
+
+            if (!dist.isOverlapped)
+            {
+                velocity = new Vector2((velocity.x * dist.normal.y) * Mathf.Sign(velocity.y * -1),
+                    (velocity.y * dist.normal.x) * Mathf.Sign(velocity.x * -1));
+
+                velocity = new Vector2(velocity.x + (dist.distance - LEWAY) * (dist.normal.x * -1), velocity.y + (dist.distance - LEWAY) * (dist.normal.y * -1));
+            }
+            else
+            {
+                velocity = new Vector2(dist.normal.x * (dist.distance - LEWAY), dist.normal.y * (dist.distance - LEWAY));
+            }
+        }
     }
 }
