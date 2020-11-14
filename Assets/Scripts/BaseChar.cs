@@ -24,13 +24,14 @@ public class BaseChar : MonoBehaviour
 
     protected virtual void Start()
     {
-        velocity = gravity * gravitySpeed;
+        gravity *= gravitySpeed;
 
         hitBox = GetComponent<BoxCollider2D>();
     }
 
     protected virtual void FixedUpdate()
     {
+        velocity = gravity;
         Collisions();
         transform.position += (Vector3)velocity;
     }
