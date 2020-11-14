@@ -15,7 +15,7 @@ public class BaseChar : MonoBehaviour
     protected ContactFilter2D SolidFilter;
 
 
-    protected const float LEWAY = .05f;
+    protected const float BUFFER = .05f;
 
     private void Awake()
     {
@@ -83,11 +83,11 @@ public class BaseChar : MonoBehaviour
                 velocity = new Vector2((velocity.x * dist.normal.y) * Mathf.Sign(velocity.y * -1),
                     (velocity.y * dist.normal.x) * Mathf.Sign(velocity.x * -1));
 
-                velocity = new Vector2(velocity.x + (dist.distance - LEWAY) * (dist.normal.x * -1), velocity.y + (dist.distance - LEWAY) * (dist.normal.y * -1));
+                velocity = new Vector2(velocity.x + (dist.distance - BUFFER) * (dist.normal.x * -1), velocity.y + (dist.distance - BUFFER) * (dist.normal.y * -1));
             }
             else
             {
-                velocity = new Vector2(dist.normal.x * (dist.distance - LEWAY), dist.normal.y * (dist.distance - LEWAY));
+                velocity = new Vector2(dist.normal.x * (dist.distance - BUFFER), dist.normal.y * (dist.distance - BUFFER));
             }
         }
     }
