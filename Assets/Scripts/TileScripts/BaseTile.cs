@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseTile : MonoBehaviour
+public class BaseTile : MonoBehaviour
 {
-    public abstract void OnTileEnter(BaseChar Character);
-    public abstract void OnTileExit(BaseChar Character);
+    public virtual void OnTileEnter(BaseChar Character) { }
+    public virtual void OnTileExit(BaseChar Character) { }
 }
