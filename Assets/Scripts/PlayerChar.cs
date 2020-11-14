@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerChar : BaseChar
+public sealed class PlayerChar : BaseChar
 {
     
-
+    private new void Start()
+    {
+        base.Start();
+    }
     
     private new void FixedUpdate()
     {
