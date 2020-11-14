@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerChar : MonoBehaviour
+public class PlayerChar : BaseChar
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
-    // Update is called once per frame
-    void Update()
+    
+    private new void FixedUpdate()
     {
-        
+        base.FixedUpdate();
     }
 }
